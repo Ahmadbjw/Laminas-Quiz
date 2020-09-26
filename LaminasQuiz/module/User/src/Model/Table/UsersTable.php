@@ -3,16 +3,6 @@ declare(strict_types=1);
 
 namespace User\Model\Table;
 
-// use Laminas\Crypt\Password\Bcrypt;
-// use Laminas\Db\Adapter\Adapter;
-// use Laminas\Db\TableGateway\AbstractTableGateway;
-// use Laminas\Filter;
-// use Laminas\Hydrator\ClassMethodsHydrator;
-// use Laminas\I18n;
-// use Laminas\InputFilter;
-// use Laminas\Validator;
-// use User\Model\Entity\UserEntity;
-
 use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Db\Adapter\Adapter;
 use Laminas\Db\ResultSet\HydratingResultSet;
@@ -39,25 +29,21 @@ class UsersTable extends AbstractTableGateway
 
 	public function fetchAccountByEmail(String $email){
 		$sqlQuery	=	$this->sql->select()
-		->join('roles','roles.role_id=' .$this->table.'role_id',['role_id','role'])
+		->join('roles','roles.role_id=' .$this->table.'.role_id',['role_id','role'])
 		->where(['email'	=>	$email]);
 
 		$sqlstmt = $this->sql->prepareStatementForSqlObject($sqlQuery);
-		// print_r($sqlstmt);
-		// exit();
 		$handler	= $sqlstmt->execute()->current();
-		print_r($handler);
-		exit();
 
 		if(!$handler)
 		{
 			return null;
 		}
-		$classMethod = new ClassMethodsHyd();
+		$classMethod = new ClassMethodsHydrator();
 		$entity		= new UserEntity();
 		$classMethod->hydrate($handler,$entity);
 		// print_r($entity);
-		// die();
+		// 		exit();
 		return $entity;
 
 
@@ -78,7 +64,7 @@ class UsersTable extends AbstractTableGateway
 					'filters' => [
 						['name' => Filter\StripTags::class],  # removes html tags
 						['name' => Filter\StringTrim::class],
-						//['name' => Filter\StringToLower::class],
+						['name' => Filter\StringToLower::class],
 					],
 					'validators' => [
 						['name' => Validator\NotEmpty::class],

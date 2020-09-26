@@ -78,7 +78,7 @@ class LoginForm extends Form
 			'name' => 'csrf',
 			'options' => [
 				'csrf_options' => [
-					'timeout' => 600,   # 10 minutes
+					// 'timeout' => 6000,   # 10 minutes
 				]
 			],
 		]);

@@ -55,9 +55,16 @@ class LoginController extends AbstractActionController
 				$info = $this->usersTable->fetchAccountByEmail($data['email']);
 
 				$hash =  new Bcrypt();
-				// if($hash->verify($data['password'],)){
 
-				// }
+				if($hash->verify($data['password'],$info->getPassword())){
+					$authAdapter->setCredential($info->getPassword);
+				} else{
+					$authAdapter->setCredential('');
+				}
+
+				$authResult = $auth->authenticate($authAdapter);
+				print_r($authResult);
+				exit();
 			}
 			else
 				echo "form is not valid";
