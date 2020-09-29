@@ -1,0 +1,30 @@
+ <?php
+ $title = $this->translate('Bjs Pdf View');
+ $this->headTitle($this->escapeHtml($title));
+?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-5 shadow-sm">
+		<h3 class="mb-3 pt-2 text-md-center">
+			<?= $this->translate($title); ?>
+		</h3>
+		<div class="mb-3 text-md-center">
+			<a href="<?=  $this->url('viewpdf')  ?>" data-iframe-src="https://www.youtube.com/channel/UCpkizJRcWHyaIyD3IcPCHkg/videos" class="map-button">Laminas </a>
+			 
+			<!-- <button type="button" class="btn btn-primary">View Pdf</button> -->
+		</div>
+		<div class="mb-3 text-md-center">
+			<a href="<?=  $this->url('viewpdf')  ?>" data-iframe-src="https://www.youtube.com/channel/UCpkizJRcWHyaIyD3IcPCHkg/videos" class="map-button">Laminas Tutorial</a>
+			<!-- <button type="button" class="btn btn-primary">View Pdf</button> -->
+		</div>
+
+		<div class="mb-3 text-md-center">
+			<a href="<?=  $this->url('viewpdf')  ?>" data-iframe-src="https://www.un.org/Depts/Cartographic/map/profile/pakistan.pdf" class="map-button">pakistan</a>
+
+			
+			<!-- <button type="button" class="btn btn-primary">View Pdf</button> -->
+		</div>
+		</div>
+	</div>
+</div>
+

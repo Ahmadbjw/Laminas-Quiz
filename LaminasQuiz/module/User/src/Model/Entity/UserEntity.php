@@ -20,7 +20,7 @@ class UserEntity
 	protected $role;
 
 	public function getUserId(){
-		$this->user_id;
+		return $this->user_id;
 	}
 
 	public function setUserId($user_id)
@@ -29,7 +29,7 @@ class UserEntity
 	}
 
 	public function getUserName(){
-		$this->username;
+		return $this->username;
 	}
 
 	public function setUserName($username)
@@ -38,7 +38,7 @@ class UserEntity
 	}
 
 	public function getEmail(){
-		$this->email;
+		return $this->email;
 	}
 
 	public function setEmail($email)
@@ -47,7 +47,7 @@ class UserEntity
 	}
 
 	public function getPassword(){
-		$this->password;
+		return $this->password;
 	}
 
 	public function setPassword($password)
@@ -56,7 +56,7 @@ class UserEntity
 	}
 
 	public function getBirthday(){
-		$this->birthday;
+		return $this->birthday;
 	}
 
 	public function setBirthday($birthday)
@@ -65,7 +65,7 @@ class UserEntity
 	}
 
 	public function getGender(){
-		$this->gender;
+		return $this->gender;
 	}
 
 	public function setGender($gender)
@@ -74,7 +74,7 @@ class UserEntity
 	}
 
 	public function getPhoto(){
-		$this->photo;
+		return $this->photo;
 	}
 
 	public function setPhoto($photo)
@@ -83,7 +83,7 @@ class UserEntity
 	}
 
 	public function getRoleId(){
-		$this->role_id;
+		return $this->role_id;
 	}
 
 	public function setRoleId($role_id)
@@ -92,7 +92,7 @@ class UserEntity
 	}
 
 	public function getActive(){
-		$this->active;
+		return $this->active;
 	}
 
 	public function setActive($active)
@@ -101,7 +101,7 @@ class UserEntity
 	}
 
 	public function getViews(){
-		$this->views;
+		return $this->views;
 	}
 
 	public function setViews($views)

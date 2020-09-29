@@ -49,6 +49,26 @@ class UsersTable extends AbstractTableGateway
 
 	}
 
+
+	public function fetchAccountById(int $userId)
+	{
+		$sqlQuery = $this->sql->select()
+		    ->join('roles', 'roles.role_id='.$this->table.'.role_id', ['role_id', 'role'])
+			->where(['user_id' => $userId]);
+		$sqlStmt  = $this->sql->prepareStatementForSqlObject($sqlQuery);
+		$handler  = $sqlStmt->execute()->current();
+
+		if(!$handler) {
+			return null;
+		}
+
+		$classMethod = new ClassMethodsHydrator();
+		$entity      = new UserEntity();
+		$classMethod->hydrate($handler, $entity);
+
+		return $entity;
+	}
+
 	# sanitizes our loginForm
 	public function getLoginFormFilter()
 	{
@@ -174,6 +194,81 @@ class UsersTable extends AbstractTableGateway
 		# be sure to return the input filter
 		return $inputFilter;
 	}
+
+
+	public function getForgotFormFilter()
+	{
+		$inputFilter = new InputFilter\InputFilter();
+		$factory = new InputFilter\Factory();
+
+		# filter and validate email 
+		$inputFilter->add(
+			$factory->createInput(
+				[
+					'name' => 'email',
+					'required' => true,
+					'filters' => [
+						['name' => Filter\StripTags::class],  # removes html tags
+						['name' => Filter\StringTrim::class],
+						['name' => Filter\StringToLower::class],
+					],
+					'validators' => [
+						['name' => Validator\NotEmpty::class],
+						[
+							'name' => Validator\StringLength::class,
+							'options' => [
+								'min' => 6,  
+								'max' => 128,
+								'messages' => [
+									Validator\StringLength::TOO_SHORT => 'Email address must have at least 6 characters!',
+									Validator\StringLength::TOO_LONG => 'Email address must have at most 128 characters!',
+								],
+							],
+						],
+						['name' => Validator\EmailAddress::class],
+						[
+							'name' => Validator\Db\RecordExists::class,
+							'options' => [
+								'table' => $this->table,
+								'field' => 'email',
+								'adapter' => $this->adapter,
+							],
+						],
+					],
+				]
+			)
+		);
+
+		# csrf 
+		$inputFilter->add(
+			$factory->createInput(
+				[
+					'name' => 'csrf',
+					'required' => true,
+					'filters' => [
+						['name' => Filter\StripTags::class],  # removes html tags
+						['name' => Filter\StringTrim::class],
+					],
+					'validators' => [
+						['name' => Validator\NotEmpty::class],
+						[
+							'name' => Validator\Csrf::class,
+							'options' => [
+								'messages' => [
+									Validator\Csrf::NOT_SAME => 'Oops! Refill the form and try again',
+								],
+							],
+						],
+					],
+				]
+			)
+		);
+
+		# be sure to return the input filter
+		return $inputFilter;
+	
+	}
+
 
 
 	public function getCreateFormFilter()

@@ -33,6 +33,13 @@ $form->prepare();
 			</div>
 			<div class="mb-3">
 				<?= $this->formLabel($form->get('password')); ?>
+				<span class="float-right">
+					<?= sprintf($this->translate('%sForgot Password?%s'),
+						'<a href="'.$this->url('forgot').'">',
+						'</a>'
+				)  ?>
+					
+				</span>
 				<div class="form-group">
 					<?= $this->formPassword($form->get('password')); ?>
 				</div>

@@ -1,0 +1,20 @@
+ <?php
+ $title = $this->translate('Bjs Pdf View');
+ $this->headTitle($this->escapeHtml($title));
+ ?>
+
+ <div class="container">
+  <h2>Responsive Embed</h2>
+  <!-- <p>Create a responsive video and scale it nicely to the parent element with an 16:9 aspect ratio</p> -->
+  <div class="embed-responsive embed-responsive-16by9">
+  	<iframe id="frame" src="" width="100%" height="auto" frameborder="0" scrolling="yes"></iframe>
+    <!-- <iframe class="embed-responsive-item" src=""></iframe> -->
+  </div>
+</div>
+
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $("#frame").attr("src", "https://www.youtube.com/channel/UCpkizJRcWHyaIyD3IcPCHkg/videos" + window.location.search);
+    });
+</script>

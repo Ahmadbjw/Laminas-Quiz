@@ -11,7 +11,11 @@ declare(strict_types=1);
 namespace User;
 
 use Laminas\Db\Adapter\Adapter;
+use User\Model\Table\ForgotTable;
+use User\Model\Table\RolesTable;
 use User\Model\Table\UsersTable;
+use User\Plugin\AuthPlugin;
+use User\Plugin\Factory\AuthPluginFactory;
 
 class Module
 {
@@ -24,11 +28,32 @@ class Module
     {
     	return [
     		'factories'  =>  [
+                RolesTable::class => function($m){
+                    $dbAdapter = $sm->get(Adapter::class);
+                    return new RolesTable($dbAdapter);
+                },
+                ForgotTable::class => function($sm) {
+                    $dbAdapter = $sm->get(Adapter::class);
+                    return new ForgotTable($dbAdapter);
+                },
     			UsersTable::class => function($sm){
     				$dbAdaper = $sm->get(Adapter::class);
     				return new UsersTable($dbAdaper);
     			}
     		]
     	];
+    }
+
+    public function getControllerPluginConfig()
+    {
+        return [
+            'aliases' =>[
+                'authPlugin' => AuthPlugin::class,
+            ],
+        'factories' => [
+             AuthPlugin::class  => AuthPluginFactory::class
+            ],
+        ];
+
     }
 }

@@ -17,7 +17,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-    	$this->flashMessenger()->addInfoMessage('Just here for you');
+    	$this->flashMessenger()->addInfoMessage('Welcome to Quiz App');
         return new ViewModel();
     }
 }
